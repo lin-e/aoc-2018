@@ -1,4 +1,5 @@
 val players = 400
+// val last = 7186400 // - part 2
 val last = 71864
 
 fun main() {
@@ -25,6 +26,7 @@ fun main() {
         }
         lowest++
         player = (player + 1) % players
+        println("${lowest.toDouble() / last}")
     }
     println(scores.max())
 }
