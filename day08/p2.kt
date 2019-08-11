@@ -22,24 +22,21 @@ class Node {
         header = Pair(dat[index], dat[index + 1])
         index += 2
         if (!leaf()) {
-            for (c in 1..(header.component1())) {
+            for (c in 1..(header.first)) {
                 children.add(Node())
             }
         }
-        for (m in 1..(header.component2())) {
+        for (m in 1..(header.second)) {
             meta.add(dat[index])
             index++
         }
     }
     fun value(): Int {
-        return if (leaf()) meta.sum() else meta.map {
+        return if (header.second == 0) meta.sum() else meta.map {
             when (it) {
                 in 1..(children.size) -> children.get(it - 1).value()
                 else -> 0
             }
         }.sum()
-    }
-    fun leaf(): Boolean {
-        return header.component1() == 0
     }
 }
