@@ -21,7 +21,7 @@ class Node {
     constructor () {
         header = Pair(dat[index], dat[index + 1])
         index += 2
-        if (!leaf()) {
+        if (header.first > 0) {
             for (c in 1..(header.first)) {
                 children.add(Node())
             }
@@ -32,7 +32,7 @@ class Node {
         }
     }
     fun value(): Int {
-        return if (header.second == 0) meta.sum() else meta.map {
+        return if (header.first == 0) meta.sum() else meta.map {
             when (it) {
                 in 1..(children.size) -> children.get(it - 1).value()
                 else -> 0
