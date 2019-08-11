@@ -10,16 +10,18 @@ fun main() {
         }
     }
     var sizes = mutableMapOf<Int, List<Int>>()
-    for (s in 1..300) {
+    sizes.put(1, levels.toList())
+    for (s in 2..300) {
         println(s)
         val dim = 301 - s
-        val squares = (0..(dim * dim - 1)).map{ flat ->
+        val squares = (0..(dim * dim - 1)).map { flat ->
             val x = flat % dim
             val y = flat / dim
-            (0..(s * s - 1)).map { off ->
-                val xp = x + (off % s)
-                val yp = y + (off / s)
-                levels[yp * 300 + xp]
+            val pIndex = y * (302 - s) + x
+            sizes.get(s - 1)!!.get(pIndex) + (0..(s - 1)).map {
+                levels[(y + s - 1) * 300 + (x + it)]
+            }.sum() + (0..(s - 2)).map {
+                levels[(y + it) * 300 + (x + s - 1)]
             }.sum()
         }
         sizes.put(s, squares)
@@ -28,5 +30,4 @@ fun main() {
     val size = sizes.keys.first { max in sizes.get(it)!! }
     val point = sizes.get(size)!!.indexOf(max)
     println("(${(point % (301 - size)) + 1}, ${(point / (301 - size)) + 1}, $size)")
-    // println("(${(max % 298) + 1}, ${(max / 298) + 1})")
 }
