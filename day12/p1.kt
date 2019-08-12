@@ -10,8 +10,19 @@ fun main() {
     }
     val iterations = 20
     val padding = iterations * 2
-    val state = ".".repeat(padding) + initial + ".".repeat(padding)
-    for (i in 1..iterations) {
-
+    var state = ".".repeat(padding) + initial + ".".repeat(padding)
+    (1..iterations).forEach {
+        var nextState = ".."
+        (2..(state.length - 3)).forEach { i ->
+            nextState += rules.get(state.substring(i - 2, i + 3)) ?: "."
+        }
+        nextState += ".."
+        state = nextState
     }
+    println(state.indices.map {
+        when (state[it]) {
+            '#' -> it - padding
+            else -> 0
+        }
+    }.sum())
 }
