@@ -2,8 +2,8 @@ val input = 2568
 
 fun main() {
     var levels = Array(300 * 300) { 0 }
-    for (x in 1..300) {
-        for (y in 1..300) {
+    (1..300).forEach { x ->
+        (1..300).forEach { y ->
             val index = (y - 1) * 300 + (x - 1)
             val rack = x + 10
             levels[index] = ((((input + (rack * y)) * rack) / 100) % 10) - 5
@@ -11,8 +11,7 @@ fun main() {
     }
     var sizes = mutableMapOf<Int, List<Int>>()
     sizes.put(1, levels.toList())
-    for (s in 2..300) {
-        println(s)
+    (2..300).forEach { s ->
         val dim = 301 - s
         val squares = (0..(dim * dim - 1)).map { flat ->
             val x = flat % dim
