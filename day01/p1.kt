@@ -1,9 +1,5 @@
 import java.io.File
 
 fun main() {
-    var freq = 0
-    File("input.txt").forEachLine {
-        freq += it.toInt()
-    }
-    println(freq);
+    println(File("input.txt").readLines().map { it.toInt() }.sum())
 }
