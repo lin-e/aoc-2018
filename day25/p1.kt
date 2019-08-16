@@ -24,20 +24,13 @@ fun main() {
 }
 
 class Star {
-    var w: Int
-    var x: Int
-    var y: Int
-    var z: Int
+    var coords = listOf<Int>()
 
     constructor (raw: String) {
-        val parts = raw.split(",")
-        w = parts.get(0).toInt()
-        x = parts.get(1).toInt()
-        y = parts.get(2).toInt()
-        z = parts.get(3).toInt()
+        coords = raw.split(",").map { it.toInt() }
     }
     fun taxi(o: Star): Int {
-        return (o.w - w).absoluteValue + (o.x - x).absoluteValue + (o.y - y).absoluteValue + (o.z - z).absoluteValue;
+        return (0..3).map { (o.coords[it] - coords[it]).absoluteValue }.sum()
     }
 }
 
